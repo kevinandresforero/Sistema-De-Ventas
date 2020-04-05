@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 import tkinter as tk
 from PIL import ImageTk,Image
-import sys
-print(sys.version)
+# import sys
+# print(sys.version)
 # ----- Colores -----
 cl = "#35c3cc"
 cf = "#090a23"

@@ -1,0 +1,12 @@
+
+Debes tener instalado Python en su vesion 3.7 
+
+En caso que genere errores, además debes instalar los módulos para windows:
+
+	PIL
+	pypiwin32
+
+Los puedes instalar mediante cmd:
+	
+	pip install Pillow
+	pip install pypiwin32

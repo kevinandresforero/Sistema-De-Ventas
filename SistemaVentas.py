@@ -2,50 +2,104 @@
 # -*- coding: utf-8 -*-
 import tkinter as tk
 from PIL import ImageTk,Image
-# import sys
-# print(sys.version)
+import sys
+print(sys.version)
 # ----- Colores -----
 cl = "#35c3cc"
 cf = "#090a23"
 # ----- Dimensiones -----
-# xw = 
-# yw =
 vx="470"
 vy="300"
+# ----- Acceder a el tamaño de la pantalla -----
+from win32api import GetSystemMetrics
+width = str(GetSystemMetrics (0))
+height = str(GetSystemMetrics (1)-85)
 # ----- Tipos de Letra -----
 f = "Impact"
       # SABER TIPOS DE LETRAS
 # for font in font.families():
 #     print(font)
 #######Future, Impact#######
-# ----- Acceder a el tamaño de la pantalla -----
-from win32api import GetSystemMetrics
-width = str(GetSystemMetrics (0)-15)
-height = str(GetSystemMetrics (1)-95)
 
 ################ Constructor Ventana Principal ###################
 class menuPrincipal:
+    
     def __menuPrincipal__():
-
         # ----- Ventana Principal -----
         __ventanaPrincipal__= tk.Tk()
+        __ventanaPrincipal__.iconphoto(False, 
+                                      tk.PhotoImage(file='Recursos/store.png'))
         __ventanaPrincipal__.configure(bg=cf)
         __ventanaPrincipal__.geometry(width+"x"+height+'+0+0')
-        __ventanaPrincipal__.maxsize(width=None, height=None)
-        __ventanaPrincipal__.resizable(width=None, height=None)
-        # __ventanaPrincipal__.attributes('-fullscreen', True)
-        # ----- Si Pantalla completa add boton cerrar
-        # def __cerrar__():
-        #     __ventanaPrincipal__.destroy()
-        # cerrar = tk.Button(text="Cerrar",
-        #            bg= cf,                           
-        #            fg= cl,
-        #            font=(f, 12),
-        #            command=__cerrar__)
-        # cerrar.grid(row=100,column=100)
+        __ventanaPrincipal__.resizable(width=0, height=0)
+        __ventanaPrincipal__.title("It Curo Faciles")
+        __ventanaPrincipal__.maxsize(width, height)
+        __ventanaPrincipal__.state('zoomed')
+        
+
+        # ----- Opciones bar ------
+        menuP = tk.Menu(__ventanaPrincipal__,
+                        background=cf, 
+                        foreground=cl,
+                        activebackground=cf, 
+                        activeforeground=cl,
+                        font=(f, 16)
+                        )
+        
+        # ----- subMenú Ventas -----
+        ventas = tk.Menu(menuP,tearoff=0,
+                     background=cl, 
+                     foreground=cf,
+                     font=(f, 16),
+                        activebackground=cf, activeforeground=cl)
+        ventas.add_command(label="v1")
+        ventas.add_command(label="v2")
+        
+        # ----- subMenú Agragaciones -----
+        agregaciones = tk.Menu(menuP,tearoff=0,
+                     background=cl, 
+                     foreground=cf,
+                     font=(f, 16),
+                        activebackground=cf, activeforeground=cl)
+        agregaciones.add_command(label="a1",command=None)
+        agregaciones.add_command(label="a2",command=None)
+
+        # ----- subMenú actualiza -----
+        actualiza = tk.Menu(menuP,tearoff=0,
+                     background=cl, 
+                     foreground=cf,
+                     font=(f, 16),
+                        activebackground=cf, activeforeground=cl)
+        actualiza.add_command(label="ac1",command=None)
+        actualiza.add_command(label="ac2",command=None)
+
+        # ----- subMenú consultas ----- 
+        consultas = tk.Menu(menuP,tearoff=0,
+                     background=cl, 
+                     foreground=cf,
+                     font=(f, 16),
+                        activebackground=cf, activeforeground=cl)
+        consultas.add_command(label="c1",command=None)
+        consultas.add_command(label="c2",command=None)
+        consultas.add_command(label="c3",command=None)
+        
+        ayuda = tk.Menu(menuP,tearoff=0,
+                     background=cl, 
+                     foreground=cf,
+                     font=(f, 16),
+                        activebackground=cf, activeforeground=cl)
+        ayuda.add_command(label="Contacto",command=None)
+        
+        # ----- Menú principal -----
+        menuP.add_cascade(label="Ventas", menu=ventas)
+        menuP.add_cascade(label="Agregaciones", menu=agregaciones)
+        menuP.add_cascade(label="Actualizaciones", menu=actualiza)
+        menuP.add_cascade(label="Consultas", menu=consultas)
+        menuP.add_cascade(label="Ayuda", menu=ayuda)
         
         
-        
+        __ventanaPrincipal__.config(menu=menuP)
+
         
         __ventanaPrincipal__.mainloop()
 
@@ -55,10 +109,7 @@ posicion = "+"+str(int(int(width)/3))+"+"+str(int(int(height)/3))
 login.geometry(vx+"x"+vy+posicion)
 login.title("Login")
 login.overrideredirect(1)
-# login.wm_attributes('-transparentcolor', cf)
 login.wm_attributes("-topmost", True)
-# login.configure(bg = cf)
-# login.wm_attributes('-transparentcolor', login['bg'])
 
 # ----- Imagen de Fondo -----
 cargaF = Image.open('Recursos/Fondo.gif')
@@ -66,8 +117,6 @@ cargaF = cargaF.resize((int(vx), int(vy)), Image.ANTIALIAS)
 photoFondo = ImageTk.PhotoImage(cargaF)
 w = photoFondo.width()
 h = photoFondo.height()
-# photoFondo = photoFondo.subsample(4, 4)
-# app.geometry('%dx%d+0+0' % (w,h))
 fondo = tk.Label(login, image=photoFondo)
 fondo.place(x=0, y=0, relwidth=1, relheight=1)
 
